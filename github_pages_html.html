@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celtra Ad Content</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars in iframe */
+            background: transparent;
+        }
+        .celtra-ad-v3 {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="celtra-ad-v3">
+        <!-- eas.JWVjaWQh = raw %ecid! -->
+        <!-- externalCreativeId = raw %ecid! -->
+        <!-- externalPlacementId = raw %epid! -->
+        <!-- externalSiteId = raw %esid! -->
+        <!-- externalSiteName = raw %%SITE%% -->
+        <!-- externalLineItemId = raw %eaid! -->
+        <!-- externalCampaignId = raw %ebuy! -->
+        <!-- externalAdvertiserId = raw %eadv! -->
+        <!-- coppa = raw %%TFCD%% -->
+        <!-- externalCreativeSize = raw %%WIDTH%%x%%HEIGHT%% -->
+        <img src="data:image/png,celtra" style="display: none" onerror="
+            (function(img) {
+                var params = {
+                    'accountId':'f9831003',
+                    'clickUrl':'%%CLICK_URL_UNESC%%',
+                    'widthBreakpoint':'',
+                    'expandDirection':'undefined',
+                    'preferredClickThroughWindow':'new',
+                    'clickEvent':'advertiser',
+                    'iosAdvId':'%%ADVERTISING_IDENTIFIER_PLAIN%%',
+                    'androidAdvId':'%%ADVERTISING_IDENTIFIER_PLAIN%%',
+                    'externalAdServer':'GoogleAdManager',
+                    'tagVersion':'html-standard-7'
+                };
+                
+                [].slice.apply(img.parentNode.childNodes).forEach(function(n) {
+                    var decfs = {
+                        urldecode: decodeURIComponent,
+                        htmldecode: function(v) {
+                            var d = document.createElement('div');
+                            d.innerHTML = v;
+                            return d.textContent;
+                        },
+                        eval: function(v) {
+                            return eval(v);
+                        },
+                        raw: function(v) {
+                            return v;
+                        }
+                    };
+                    var m;
+                    if (n.nodeType == 8 && (m = n.textContent.match(/^\s+([\w%.]+)(\[.+\])?\s+=\s+(\w+)\s+(.*)$/i))) {
+                        try {
+                            params[m[1]+(m[2] || '')] = decfs[m[3]](m[4].replace(/^\s+|\s+$/g, ''));
+                        } catch (e) {}
+                    }
+                });
+                
+                var req = document.createElement('script');
+                req.id = params.scriptId = 'celtra-script-' + (window.celtraScriptIndex = (window.celtraScriptIndex||0)+1);
+                params.clientTimestamp = new Date/1000;
+                params.clientTimeZoneOffsetInMinutes = new Date().getTimezoneOffset();
+                params.hostPageLoadId=window.celtraHostPageLoadId=window.celtraHostPageLoadId||(Math.random()+'').slice(2);
+                
+                var qs = '';
+                for (var k in params) {
+                    qs += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+                }
+                
+                var src = 'https://ads.celtra.com/6259158d/web.js?' + qs;
+                req.src = src;
+                img.parentNode.insertBefore(req, img.nextSibling);
+            })(this);
+        "/>
+    </div>
+</body>
+</html>
